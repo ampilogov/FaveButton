@@ -43,7 +43,7 @@ public extension FaveButtonDelegate{
 open class FaveButton: UIButton {
     
     fileprivate struct Const{
-        static let duration             = 1.0
+        static let duration             = 0.9
         static let expandDuration       = 0.1298 
         static let collapseDuration     = 0.1089
         static let faveIconShowDelay    = Const.expandDuration + Const.collapseDuration/2.0
@@ -94,6 +94,10 @@ open class FaveButton: UIButton {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
         applyInit()
     }
 }
@@ -195,6 +199,7 @@ extension FaveButton{
 extension FaveButton{
     fileprivate func animateSelect(_ isSelected: Bool, duration: Double){
         let color  = isSelected ? selectedColor : normalColor
+        let duration = isSelected ? Const.duration : Const.duration / 2
         
         faveIcon.animateSelect(isSelected, fillColor: color, duration: duration, delay: Const.faveIconShowDelay)
         
