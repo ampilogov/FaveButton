@@ -86,6 +86,10 @@ extension FaveIcon{
         
         self.layer.addSublayer(iconLayer)
     }
+    
+    func update(color: UIColor) {
+        iconLayer.fillColor = color.cgColor
+    }
 }
 
 
@@ -100,7 +104,7 @@ extension FaveIcon{
         CATransaction.begin()
         CATransaction.setDisableActions(true)
             iconLayer.fillColor = fillColor.cgColor
-        iconLayer.mask?.contents = isSelected ? selectedIconImage.cgImage : iconImage.cgImage
+            iconLayer.mask?.contents = isSelected ? selectedIconImage.cgImage : iconImage.cgImage
         CATransaction.commit()
         
         let selectedDelay = isSelected ? delay : 0

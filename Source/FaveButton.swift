@@ -50,8 +50,12 @@ open class FaveButton: UIButton {
         static let dotRadiusFactors     = (first: 0.0633, second: 0.04)
     }
     
-    @IBInspectable open var normalColor: UIColor     = UIColor(red: 137/255, green: 156/255, blue: 167/255, alpha: 1)
-    @IBInspectable open var selectedColor: UIColor   = UIColor(red: 226/255, green: 38/255,  blue: 77/255,  alpha: 1)
+    @IBInspectable open var normalColor: UIColor     = UIColor(red: 137/255, green: 156/255, blue: 167/255, alpha: 1) {
+        didSet { self.updateColor() }
+    }
+    @IBInspectable open var selectedColor: UIColor   = UIColor(red: 226/255, green: 38/255,  blue: 77/255,  alpha: 1) {
+        didSet { self.updateColor() }
+    }
     @IBInspectable open var dotFirstColor: UIColor   = UIColor(red: 152/255, green: 219/255, blue: 236/255, alpha: 1)
     @IBInspectable open var dotSecondColor: UIColor  = UIColor(red: 247/255, green: 188/255, blue: 48/255,  alpha: 1)
     @IBInspectable open var circleFromColor: UIColor = UIColor(red: 221/255, green: 70/255,  blue: 136/255, alpha: 1)
@@ -63,7 +67,7 @@ open class FaveButton: UIButton {
     
     fileprivate var faveIconImage:UIImage?
     fileprivate var selectedIconImage:UIImage?
-    fileprivate var faveIcon: FaveIcon!
+    fileprivate var faveIcon: FaveIcon?
     
     
     override open var isSelected: Bool{
@@ -99,6 +103,11 @@ open class FaveButton: UIButton {
     override open func awakeFromNib() {
         super.awakeFromNib()
         applyInit()
+    }
+    
+    private func updateColor() {
+        let color = isSelected ? selectedColor : normalColor
+        faveIcon?.update(color: color)
     }
 }
 
@@ -201,7 +210,7 @@ extension FaveButton{
         let color  = isSelected ? selectedColor : normalColor
         let duration = isSelected ? Const.duration : Const.duration / 2
         
-        faveIcon.animateSelect(isSelected, fillColor: color, duration: duration, delay: Const.faveIconShowDelay)
+        faveIcon?.animateSelect(isSelected, fillColor: color, duration: duration, delay: Const.faveIconShowDelay)
         
         if isSelected{
             let radius           = bounds.size.scaleBy(1.3).width/2 // ring radius
