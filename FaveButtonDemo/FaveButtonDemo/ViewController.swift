@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        faveButton.normalColor = .brown
+        faveButton.normalColor = .blue
     }
     
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool){

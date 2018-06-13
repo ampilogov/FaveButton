@@ -87,8 +87,16 @@ extension FaveIcon{
         self.layer.addSublayer(iconLayer)
     }
     
-    func update(color: UIColor) {
-        iconLayer.fillColor = color.cgColor
+    func update(color: UIColor? = nil, icon: UIImage? = nil) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        if let color = color {
+            iconLayer.fillColor = color.cgColor
+        }
+        if let icon = icon {
+            iconLayer.mask?.contents = icon.cgImage
+        }
+        CATransaction.commit()
     }
 }
 
@@ -100,12 +108,8 @@ extension FaveIcon{
         if nil == tweenValues{
             tweenValues = generateTweenValues(from: 0, to: 1.0, duration: CGFloat(duration))
         }
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-            iconLayer.fillColor = fillColor.cgColor
-            iconLayer.mask?.contents = isSelected ? selectedIconImage.cgImage : iconImage.cgImage
-        CATransaction.commit()
+        let icon = isSelected ? selectedIconImage : iconImage
+        update(color: fillColor, icon: icon)
         
         let selectedDelay = isSelected ? delay : 0
         
