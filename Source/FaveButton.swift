@@ -133,9 +133,9 @@ extension FaveButton{
             fatalError("please provide a selectedIconImage for normal state.")
         }
         
-        setImage(UIImage(), for: UIControlState())
+        setImage(UIImage(), for: UIControl.State())
         setImage(UIImage(), for: .selected)
-        setTitle(nil, for: UIControlState())
+        setTitle(nil, for: UIControl.State())
         setTitle(nil, for: .selected)
         
         faveIcon  = createFaveIcon(faveIconImage, selectedImage: selectedImage)
