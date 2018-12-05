@@ -65,7 +65,9 @@ open class FaveButton: UIButton {
     
     fileprivate(set) var sparkGroupCount: Int = 7
     
-    fileprivate var faveIconImage:UIImage?
+    public var faveIconImage:UIImage? {
+        didSet { self.faveIcon?.update(icon: faveIconImage) }
+    }
     fileprivate var selectedIconImage:UIImage?
     fileprivate var faveIcon: FaveIcon?
     
